@@ -39,9 +39,10 @@ def startCamera(skip_seconds):
             print('Video Capture returns FALSE !')
             break
 
-        frame_count += fps * skip_seconds
-        cameraStream.set(1, frame_count)
-        time.sleep(skip_seconds)
+        if skip_seconds > 0:
+            frame_count += fps * skip_seconds
+            cameraStream.set(1, frame_count)
+            time.sleep(skip_seconds)
 
     # Release camera resource
     cameraStream.release()
