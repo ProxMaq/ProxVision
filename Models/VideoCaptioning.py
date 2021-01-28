@@ -81,8 +81,11 @@ def startCamera(skip_seconds):
 
             
             max_length = 32
-            tokenizer = load(open("Flickr8k/tokenizer.p","rb"))
-            model = load_model("Flickr8k/model_9.h5")
+            #tokenizer = load(open("Flickr8k/tokenizer.p","rb"))
+            #model = load_model("Flickr8k/model_9.h5")
+            tokenizer = load(open("Flickr30k/tokenizer.p","rb"))
+            model = load_model("Flickr30k/model_8.h5")
+
             
             xception_model = Xception(include_top=False, pooling="avg")
             photo = extract_features(resized_frame, xception_model)
