@@ -1,5 +1,6 @@
 import time
 import cv2
+import os
 import numpy as np
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
@@ -55,8 +56,12 @@ def generate_desc(model, tokenizer, photo, max_length):
 
 def textToSpeech(text):
     speech = gTTS(text = text, lang = 'en', slow = False)
-    speech.save('caption_audio.mp3')
-    playsound('caption_audio.mp3')
+    speech.save("caption_audio.mp3")
+    playsound("caption_audio.mp3")
+    #---------For continued captioning----------
+    file = "caption_audio.mp3"
+    os.remove(file)
+    #-------------------------------------------
     
 def startCamera(skip_seconds):
 
@@ -112,12 +117,12 @@ def startCamera(skip_seconds):
     print('Application exited !')
 
 #--------- LOAD DATASET & INIT MODEL -----------------
-#max_length = 32 # For Flickr8k
-max_length = 72 # For Flickr30k
-#tokenizer = load(open("Flickr8k/tokenizer.p","rb")) # For Flickr8k
-#model = load_model("Flickr8k/model_9.h5") # For Flickr8k
-tokenizer = load(open("Flickr30k/tokenizer.p","rb")) # For Flickr30k
-model = load_model("Flickr30k/model_8.h5") # For Flickr30k
+max_length = 32 # For Flickr8k
+#max_length = 72 # For Flickr30k
+tokenizer = load(open("C:\\Users\Harsh\Desktop\Projects\ProxVision\Models\Flickr8k/tokenizer.p","rb")) # For Flickr8k
+model = load_model("C:\\Users\Harsh\Desktop\Projects\ProxVision\Models\Flickr8k/model_9.h5") # For Flickr8k
+#tokenizer = load(open("C:\\Users\Harsh\Desktop\Projects\ProxVision\Models\Flickr30k/tokenizer.p","rb")) # For Flickr30k
+#model = load_model("C:\\Users\Harsh\Desktop\Projects\ProxVision\Models\Flickr30k/model_8.h5") # For Flickr30k
 
 xception_model = Xception(include_top=False, pooling="avg")
 #-----------------------------------------------------
