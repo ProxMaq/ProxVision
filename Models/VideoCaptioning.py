@@ -14,6 +14,8 @@ from pathlib import Path
 from IPython.display import display
 
 def startCamera(skip_seconds):
+
+    video_path = "/some_path" # For local video captioning replace '0' from video_path
     cameraStream = cv2.VideoCapture(0)
 
     # Get frame information
@@ -80,11 +82,12 @@ def startCamera(skip_seconds):
                 return in_text
 
             
-            max_length = 32
-            #tokenizer = load(open("Flickr8k/tokenizer.p","rb"))
-            #model = load_model("Flickr8k/model_9.h5")
-            tokenizer = load(open("Flickr30k/tokenizer.p","rb"))
-            model = load_model("Flickr30k/model_8.h5")
+            #max_length = 32 # For Flickr8k
+            max_length = 72 # For Flickr30k
+            #tokenizer = load(open("Flickr8k/tokenizer.p","rb")) # For Flickr8k
+            #model = load_model("Flickr8k/model_9.h5") # For Flickr8k
+            tokenizer = load(open("Flickr30k/tokenizer.p","rb")) # For Flickr30k
+            model = load_model("Flickr30k/model_8.h5") # For Flickr30k
 
             
             xception_model = Xception(include_top=False, pooling="avg")
