@@ -87,7 +87,10 @@ def startCamera(skip_seconds):
 
             description = generate_desc(model, tokenizer, photo, max_length)
             print(description)
-
+            
+            # Convert text into speech
+            textToSpeech(description)
+            
             # Commented, because our task is to generate caption (and later convert it into audio)
             cv2.imshow('frame', frame)
 
