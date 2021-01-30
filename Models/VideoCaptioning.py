@@ -56,10 +56,9 @@ def generate_desc(model, tokenizer, photo, max_length):
 
 def textToSpeech(text):
     speech = gTTS(text = text, lang = 'en', slow = False)
-    speech.save("caption_audio.mp3")
-    playsound("caption_audio.mp3")
+    speech.save(audio_file)
+    playsound(audio_file)
     #---------For continued captioning----------
-    file = "caption_audio.mp3"
     os.remove(file)
     #-------------------------------------------
     
@@ -125,6 +124,7 @@ model = load_model("C:\\Users\Harsh\Desktop\Projects\ProxVision\Models\Flickr8k/
 #model = load_model("C:\\Users\Harsh\Desktop\Projects\ProxVision\Models\Flickr30k/model_8.h5") # For Flickr30k
 
 xception_model = Xception(include_top=False, pooling="avg")
+audio_file = "caption_audio.mp3"
 #-----------------------------------------------------
 
 def runApp():
