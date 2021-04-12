@@ -1,18 +1,10 @@
 import tensorflow as tf
 import cv2
-import collections
-import random
-import re
 import numpy as np
 import os
 import shutil
 import time
-import json
-from glob import glob
-from PIL import Image
-from IPython.display import display
 import pickle
-from pickle import dump, load
 from gtts import gTTS
 from playsound import playsound
 
@@ -124,7 +116,6 @@ def load_image(image_path):
     img = tf.image.decode_jpeg(img, channels=3)
     img = tf.image.resize(img, (299, 299))
     img = tf.keras.applications.inception_v3.preprocess_input(img)
-    os.remove(image_path)
     return img, image_path
 
 
@@ -236,6 +227,7 @@ def startCamera(skip_seconds):
             # description = generate_desc(model, tokenizer, photo, max_length)
             image = cv2.imwrite('image'+'.jpg', resized_frame)
             description, attention_plot = evaluate("image.jpg")
+            os.remove("image.jpg")
 
             description = " ".join(description)
             description = description.replace("<end>", "")
@@ -280,10 +272,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-# image_path = '/content/datasets_122238_294885_Flickr_Data_Images_1009434119_febe49276a.jpg'
-
-# display(Image.open(image_path))
-
-# print('Predicted Caption:<start>', ' '.join(result))
