@@ -8,6 +8,15 @@ import pickle
 from gtts import gTTS
 from playsound import playsound
 
+"""
+Note First you have to downlaod the checkpoints to run the VideoCaptioning.py. Download them from here
+
+Link:- https://drive.google.com/drive/folders/1s0jmNKmIHvjdiq39cvh2WEVKFjTUv_Id?usp=sharing
+
+Download them and change the checkpoint path in the evaluate function.
+
+"""
+
 
 class Attention(tf.keras.Model):
     def __init__(self, units):
