@@ -3,58 +3,81 @@
 
 import tensorflow as tf 
 import keras 
-from tf.keras.layers import Dense,Conv2D,
-MaxPooling2D,Flatten,Dropout,BatchNormalization
-from tensorflow.keras.models import Sequential, Model
+from keras.layers import (Dense,Conv2D,
+MaxPooling2D,Flatten,Dropout,BatchNormalization,Input)
+from keras.models import Sequential, Model
 from keras.layers import LSTM, TimeDistributed
+
 import numpy as np
 
 class model_v1:
-    def __init__(self,name,location,
-    kernels,filters,activation,
-    kernel_initializer,data_formats
-    loss_funct,no_layers,
-    pool_size,strides
+    def __init__(self,
+    activation,kernel_initializer,No_categories,loss_funct,filters,pool_size
 
                         ):
 
-        self.name=name
-        self.location=location
+        #self.name=name
+        #self.location=location
         self.activation=activation
         self.loss_funct=loss_funct
-        self.no_layers=no_layers
-        self.kernels=kernels
+        #self.no_layers=no_layers
+        #self.kernels=kernels
         self.filters=filters
         self.activation=activation
         self.loss_funct=loss_funct
         self.kernel_initializer=kernel_initializer
-        self.data_formats=data_formats
         self.pool_size=pool_size
-        self.strides=strides
+        #self.strides=strides
+        self.No_categories=No_categories
 
 
-    def build_model(self):
+    def build_model(self,activation,kernel_initializer,No_categories,loss_funct,filters,pool_size):
+        input_sh=Input(shape=(32,32,1))
+        model=Conv2D(16,(self.filters),
+        kernel_initializer=self.kernel_initializer,
+        activation=self.activation)(input_sh)
+        #model=BatchNormalization()(model)
+
+        model=MaxPooling2D(pool_size=(self.pool_size))(model)
         
-        model=Conv2D(self.kernels,(self.filters),
-        kernel_intializer=self.kernel_initializer,
-        data_formats=self.data_formats,
-        activation=self.activation)
+        model=Conv2D(32,(self.filters),
+        kernel_initializer=self.kernel_initializer,
+        activation=self.activation
+        )(model)
+
+
         model=BatchNormalization()(model)
+        model=MaxPooling2D(pool_size=(self.pool_size)
+        )(model)
+        #model=BatchNormalization()(model)
 
-        model=MaxPooling2D(pool_size=(self.pool_size),
-        strides=(self.strides))(model)
-        
-        model=Conv2D()(model)
-        model=MaxPooling2D()(model)
+        model=Conv2D(64,(self.filters),
+        kernel_initializer=self.kernel_initializer,
+        activation=self.activation
+        )(model)
         model=BatchNormalization()(model)
+        model=MaxPooling2D(pool_size=(self.pool_size)
+        )(model)
+        #model=BatchNormalization()(model)
 
-        model=LSTM()
+        model=TimeDistributed(Flatten())(model)
+
+
+        model=LSTM(33,activation='tanh',recurrent_initializer='glorot_uniform',)(model)
+        model=Dense(1024,activation='relu')(model)
+        model=Dense(1024,activation='relu')(model)
+        model=Dense(self.No_categories,activation='relu')(model)
+        model = Model(inputs=input_sh, outputs= model)
+        return model
+
+        
+
+get_model=model_v1('relu','he_uniform',32,'adam',(3,3),(2,2))
+mo=get_model.build_model('relu','he_uniform',32,'adam',(3,3),(2,2))
+mo.summary()
+    #def compile_model(self):
         
 
 
 
-    def compile_model(self):
-
-
-
-    def fit(self):
+    #def fit(self):
