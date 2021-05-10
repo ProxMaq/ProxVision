@@ -7,6 +7,7 @@ from keras.layers import (Dense,Conv2D,
 MaxPooling2D,Flatten,Dropout,BatchNormalization,Input)
 from keras.models import Sequential, Model
 from keras.layers import LSTM, TimeDistributed
+from configuration import act_funct,ls_funct,ker_init,pool,flt
 
 import numpy as np
 
@@ -63,7 +64,7 @@ class model_v1:
         model=TimeDistributed(Flatten())(model)
 
 
-        model=LSTM(33,activation='tanh',recurrent_initializer='glorot_uniform',)(model)
+        model=LSTM(33,activation='tanh',recurrent_initializer='glorot_uniform')(model)
         model=Dense(1024,activation='relu')(model)
         model=Dense(1024,activation='relu')(model)
         model=Dense(self.No_categories,activation='relu')(model)
@@ -72,12 +73,6 @@ class model_v1:
 
         
 
-get_model=model_v1('relu','he_uniform',32,'adam',(3,3),(2,2))
-mo=get_model.build_model('relu','he_uniform',32,'adam',(3,3),(2,2))
+get_model=model_v1(act_funct,ker_init,32,ls_funct,flt,pool)
+mo=get_model.build_model(act_funct,ker_init,32,ls_funct,flt,pool)
 mo.summary()
-    #def compile_model(self):
-        
-
-
-
-    #def fit(self):
