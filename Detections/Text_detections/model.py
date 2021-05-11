@@ -2,38 +2,39 @@
 ### model type: combination of CNN and LSTM
 
 import tensorflow as tf 
-import keras 
-from keras.layers import (Dense,Conv2D,
+import tensorflow.keras 
+from tensorflow.keras.layers import (Dense,Conv2D,
 MaxPooling2D,Flatten,Dropout,BatchNormalization,Input)
-from keras.models import Sequential, Model
-from keras.layers import LSTM, TimeDistributed
-from configuration import act_funct,ls_funct,ker_init,pool,flt,optimizer
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import LSTM, TimeDistributed
+from configuration import act_funct,ker_init,pool,flt
 
 import numpy as np
 
 class model_v1:
     def __init__(self,
-    activation,kernel_initializer,No_categories,loss_funct,filters,pool_size,optimizer
+    activation,kernel_initializer,No_categories,filters,pool_size,
 
                         ):
 
         #self.name=name
         #self.location=location
         self.activation=activation
-        self.loss_funct=loss_funct
+        
         #self.no_layers=no_layers
         #self.kernels=kernels
         self.filters=filters
         self.activation=activation
-        self.loss_funct=loss_funct
+        
         self.kernel_initializer=kernel_initializer
         self.pool_size=pool_size
         #self.strides=strides
         self.No_categories=No_categories
 
 
-    def build_model(self,activation,kernel_initializer,No_categories,loss_funct,filters,pool_size,optimizer):
-        input_sh=Input(shape=(32,32,1))
+    def build_model(self,activation,kernel_initializer,No_categories,filters,pool_size):
+        #input shape must change according to data
+        input_sh=Input(shape=(96,96,3))
         model=Conv2D(16,(self.filters),
         kernel_initializer=self.kernel_initializer,
         activation=self.activation)(input_sh)
@@ -73,6 +74,7 @@ class model_v1:
 
         
 
-get_model=model_v1(act_funct,ker_init,32,ls_funct,flt,pool,optimizer)
-mo=get_model.build_model(act_funct,ker_init,32,ls_funct,flt,pool,optimizer)
+get_model=model_v1(act_funct,ker_init,5,flt,pool)
+mo=get_model.build_model(act_funct,ker_init,5,flt,pool)
 mo.summary()
+    
