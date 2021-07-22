@@ -5,16 +5,16 @@ import os
 
 kernel = np.ones((3, 3), np.uint8)
 
-Left0=(np.loadtxt("Left_Stereo0.txt", dtype=int)).T
-L1=np.loadtxt("Left_Stereo1.txt",dtype=int).T
-SizeL=np.loadtxt("sizesL.txt",dtype=int).T
-Right0=np.loadtxt("Right_Stereo0.txt",dtype=int).T
-R1=np.loadtxt("Right_Stereo1.txt",dtype=int).T
-SizeR=np.loadtxt("sizesR.txt",dtype=int).T
-L0=Left0.reshape(SizeL[0],SizeL[1],SizeL[2])
-print(L0.shape,L1.shape)
+Lft=np.loadtxt("Left_Stereo0.txt",dtype=np.int16)
+Rt=np.loadtxt("Right_Stereo0.txt",dtype=np.int16)
 
-R0=Right0.reshape(SizeR[0],SizeR[1],SizeR[2])
+L=Lft.reshape(Lft.shape[0],640,3)
+L0=L[:,:,0:2]
+L1=L[:,:,2]
+
+R=Rt.reshape(Rt.shape[0],640,3)
+R0=R[:,:,0:2]
+R1=R[:,:,2]
 # Create StereoSGBM and prepare all parameters
 window_size = 3
 min_disp = 4
@@ -81,7 +81,7 @@ dispc = (closing - closing.min()) * 255
 dispC = dispc.astype(
     np.uint8)  # Convert the type of the matrix from float32 to uint8, this way you can show the results with the function cv2.imshow()
 disp_Color = cv2.applyColorMap(dispC, cv2.COLORMAP_OCEAN)  # Change the Color of the Picture into an Ocean Color_Map
-filt_Color = cv2.applyColorMap(filteredImg, cv2.COLORMAP_OCEAN)
+filt_Color = cv2.applyColorMap(filteredImg, cv2.COLORMAP_JET)
 
 # Show the result for the Depth_image
 cv2.imshow('Filtered Color Depth', filt_Color)
