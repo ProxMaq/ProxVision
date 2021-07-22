@@ -20,7 +20,7 @@ imgpointsL = []
 # Start calibration from the camera
 print('Starting calibration for the 2 cameras... ')
 # Call all saved images
-for i in range(0, 11):  # Put the amount of pictures you have taken for the calibration inbetween range(0,?) wenn starting from the image number 0
+for i in range(0, 76):  # Put the amount of pictures you have taken for the calibration inbetween range(0,?) wenn starting from the image number 0
     #print(i)
     t = str(i)
     ChessImaR = cv2.imread('Right\chessboard-R' + t + '.png', 0)  # Right side
@@ -89,19 +89,12 @@ Right_Stereo_Map = cv2.initUndistortRectifyMap(MRS, dRS, RR, PR,
                                                ChessImaR.shape[::-1], cv2.CV_16SC2)
 
 
-print(Left_Stereo_Map[0].shape)
-print(Left_Stereo_Map[1].shape)
-Left0=Left_Stereo_Map[0].reshape(Left_Stereo_Map[0].shape[0],-1)
-Left1=Left_Stereo_Map[1].reshape(Left_Stereo_Map[1].shape[1],-1)
-sizeL=Left_Stereo_Map[0].shape+ Left_Stereo_Map[1].shape
-Right0=Right_Stereo_Map[0].reshape(Right_Stereo_Map[0].shape[0],-1)
-Right1=Right_Stereo_Map[1].reshape(Right_Stereo_Map[1].shape[1],-1)
-sizeR=Right_Stereo_Map[0].shape+ Right_Stereo_Map[1].shape
+Left1=Left_Stereo_Map[1].reshape((480,640,1))
+Left=np.concatenate((Left_Stereo_Map[0],Left1),axis=2)
+LFTdata=Left.reshape(Left.shape[0],-1)
+Right1=Right_Stereo_Map[1].reshape((480,640,1))
+Right=np.concatenate((Right_Stereo_Map[0],Right1),axis=2)
+RGTdata=Right.reshape(Right.shape[0],-1)
 
-np.savetxt('Left_Stereo0.txt', Left0)
-np.savetxt('Left_Stereo1.txt', Left1)
-np.savetxt("sizesL.txt",sizeL)
-
-np.savetxt('Right_Stereo0.txt', Right0)
-np.savetxt('Right_Stereo1.txt', Right1)
-np.savetxt("sizesR.txt",sizeR)
+np.savetxt('Left_Stereo0.txt', LFTdata)
+np.savetxt('Right_Stereo0.txt', RGTdata)
