@@ -32,7 +32,7 @@ class model_v1:
         self.No_categories=No_categories
 
 
-    def build_model(self,activation,kernel_initializer,No_categories,filters,pool_size):
+    def build_model(self):
         #input shape must change according to data
         input_sh=Input(shape=(96,96,3))
         model=Conv2D(16,(self.filters),
@@ -75,6 +75,6 @@ class model_v1:
         
 
 get_model=model_v1(act_funct,ker_init,5,flt,pool)
-mo=get_model.build_model(act_funct,ker_init,5,flt,pool)
+mo=get_model.build_model()
 
 mo.summary()
