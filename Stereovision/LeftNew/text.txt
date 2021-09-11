@@ -1,1 +1,5 @@
 this folder contain calibration images of left camera
+ImageobjectL1.png,ImageobjectL2.png,ImageobjectL3.png
+in ImageobjectL1.png image both at 125 cm away from camera, from each other 50 cm apart.
+in ImageobjectL2.png object is 75cm away.
+in ImageobjectL3.png object is 50cm away.
