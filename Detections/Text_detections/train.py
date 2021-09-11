@@ -1,4 +1,3 @@
-
 import keras
 import tensorflow as tf 
 import argparse
@@ -7,7 +6,6 @@ from configuration import epoch,optimizer,ls_funct
 '''
 train.py <path_to_train> <path_to validation>
 'mo' i the model object called from model.py
-
 '''
 
 parser = argparse.ArgumentParser()
@@ -40,5 +38,10 @@ def main():
         epochs=epochs
         )
     fit_model()
+
+    tf.keras.models.save_model(
+model=mo, filepath='/content/drive/MyDrive', overwrite=False, include_optimizer=True, save_format=tf,
+signatures=None, options=None, save_traces=True
+)
 if __name__ == '__main__':
     main()
