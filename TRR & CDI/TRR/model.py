@@ -62,10 +62,8 @@ class model_v1:
         )(model)
         #model=BatchNormalization()(model)
 
-        #model=TimeDistributed(Flatten())(model)
+        model=Flatten()(model)
 
-
-        #model=LSTM(33,activation='tanh',recurrent_initializer='glorot_uniform')(model)
         #model=Dense(1024,activation='relu')(model)
         model=Dense(1024,activation='relu')(model)
         model=Dense(self.No_categories)(model)
