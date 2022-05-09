@@ -76,7 +76,7 @@ return data_list
 ## Reading images and getting focal length
 
 You have to make changes on these lines 📝 [***DistanceEstimation.py***](https://github.com/Asadullah-Dal17/Yolov4-Detector-and-Distance-Estimator/blob/master/DistanceEstimation.py#L69-L76)
-there two situations, if the object(classes) in single image then, here you can see the my reference image <img src='ReferenceImages/image4.png' width=200> 
+there two situations, if the object(classes) in single image then 
 it has to two object, *person* and *cell phone*
 ```python
 # reading refrence images 
