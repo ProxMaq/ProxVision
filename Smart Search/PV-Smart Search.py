@@ -8,7 +8,7 @@ import pyttsx3
 
 listn = sr.Recognizer()
 
-# download required weight and config file of the yolo model
+# download required weight and config file of the yolo model here https://pjreddie.com/darknet/yolo/
 weight = r"yolov4-tiny.weights"
 cfg = r"yolov4_tiny.cfg"
 yolo = cv2.dnn.readNet(cfg, weight)
